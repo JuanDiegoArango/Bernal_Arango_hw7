@@ -11,20 +11,18 @@ int main(int argc, char *argv[])
 
 {
 
-float L=100;
-float T=40;
+int L=100;
+int T=40;
 int t=120;
 int i;
 float rho=atof(argv[1]);;
 int particion = 100;
 float delta_x=L/particion;
-float delta_t=0.00005;
-float *x,*y_pasado,*y_futuro,*y_presente;
+float delta_t=0.0005;
+float *y_pasado,*y_futuro,*y_presente;
 float r=(delta_t/delta_x)*sqrt(T/rho);
 
 
-    
-x=malloc(particion*sizeof(float));
 y_pasado=malloc(particion*sizeof(float));
 y_presente=malloc(particion*sizeof(float));
 y_futuro=malloc(particion*sizeof(float));
@@ -92,13 +90,22 @@ void evolucion_en_el_timepo(float *y_futuro, float *y_pasado, float *y_presente,
             for (j=1;j<particion-1; j++)
             {
                 
-                y_futuro[j]=2*(1-r*r)*y_presente[j]-y_pasado[j]+r*r*(y_presente[j+1]+y_presente[j-1]);
+                y_futuro[j]=2.0*(1.0-r*r)*y_presente[j]-y_pasado[j]+r*r*(y_presente[j+1]+y_presente[j-1]);
                 
             }
          
             el_tiempo_avanza(y_pasado, y_presente, y_futuro,particion);
     
     }
+    
+    
+    for (k=0; k<particion; k++)
+    {
+        fprintf(fileout," %f  " , y_presente[k]);
+    }
+    
+    
+    
     
     fclose(fileout);
 
@@ -113,6 +120,10 @@ void el_tiempo_avanza(float *y_pasado, float *y_presente, float *y_futuro,int pa
             for (i=0; i<particion; i++)
             {
                 y_pasado[i]=y_presente[i];
+            }
+        
+            for (i=0; i<particion; i++)
+            {
                 y_presente[i]=y_futuro[i];
             }
     
