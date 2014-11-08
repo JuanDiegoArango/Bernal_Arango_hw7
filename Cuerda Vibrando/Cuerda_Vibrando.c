@@ -114,12 +114,12 @@ void evolucion_en_el_timepo(float *y_futuro, float *y_pasado, float *y_presente,
 void el_tiempo_avanza(float *y_pasado, float *y_presente, float *y_futuro,int particion)
     {
         int i;
-            for (i=0; i<particion; i++)
+            for (i=1; i<particion; i++)
             {
                 y_pasado[i]=y_presente[i];
             }
         
-            for (i=0; i<particion; i++)
+            for (i=1; i<particion; i++)
             {
                 y_presente[i]=y_futuro[i];
             }
