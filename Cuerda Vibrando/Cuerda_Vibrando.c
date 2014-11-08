@@ -29,7 +29,7 @@ y_futuro=malloc(particion*sizeof(float));
     
 condicion_inicial(y_pasado,particion,L,delta_x);
     
-for (i=1; i<particion-1; i++)
+for (i=1; i<particion; i++)
 
 {
     y_presente[i]=y_pasado[i]+r*r/2*(y_pasado[i+1]-2.0*y_pasado[i]+y_pasado[i-1]);
@@ -44,8 +44,8 @@ return 0;
 }
 
 void condicion_inicial(float *y_pasado, int particion, float L, float delta_x){
-    int i=0;
-    for (i=1; i<particion; i++)
+    int i;
+    for (i=0; i<=particion; i++)
     {
             if (i<=0.8*L)
             {
@@ -61,9 +61,6 @@ void condicion_inicial(float *y_pasado, int particion, float L, float delta_x){
             }
     }
     
-        y_pasado[0]=0;
-        y_pasado[particion-1]=0;
-        
     }
 
     
@@ -80,14 +77,14 @@ void evolucion_en_el_timepo(float *y_futuro, float *y_pasado, float *y_presente,
     
     for(i=0;i<t;i++)
     {
-            for (k=0; k<particion; k++)
+            for (k=0; k<=particion; k++)
             {
                 fprintf(fileout," %f  " , y_presente[k]);
             }
         
             fprintf(fileout, "\n");
     
-            for (j=1;j<particion-1; j++)
+            for (j=1;j<particion; j++)
             {
                 
                 y_futuro[j]=2.0*(1.0-r*r)*y_presente[j]-y_pasado[j]+r*r*(y_presente[j+1]+y_presente[j-1]);
@@ -99,7 +96,7 @@ void evolucion_en_el_timepo(float *y_futuro, float *y_pasado, float *y_presente,
     }
     
     
-    for (k=0; k<particion; k++)
+    for (k=0; k<=particion; k++)
     {
         fprintf(fileout," %f  " , y_presente[k]);
     }
