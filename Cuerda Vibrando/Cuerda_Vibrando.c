@@ -10,17 +10,17 @@ void  evolucion_en_el_timepo(float *y_futuro, float *y_pasado, float *y_presente
 int main(int argc, char *argv[])
 
 {
-
+float delta_x=0.1;
+float delta_t=0.0005;
 int L=100;
 int T=40;
-int t=120;
 int i;
-float rho=atof(argv[1]);;
-int particion = 100;
-float delta_x=L/particion;
-float delta_t=0.0005;
+float rho=atof(argv[1]);
+int particion =(int)100/delta_x;
 float *y_pasado,*y_futuro,*y_presente;
 float r=(delta_t/delta_x)*sqrt(T/rho);
+int t=(int)120/delta_t;
+
 
 
 y_pasado=malloc(particion*sizeof(float));
@@ -45,18 +45,20 @@ return 0;
 
 void condicion_inicial(float *y_pasado, int particion, float L, float delta_x){
     int i;
+    int j;
     for (i=0; i<=particion; i++)
-    {
-            if (i<=0.8*L)
+    {       j=i*delta_x;
+        
+            if (j<=0.8*L)
             {
-                y_pasado[i]=1.25*(delta_x*i/L);
+                y_pasado[i]=1.25*(j/L);
                 
             }
         
         
-            if (i>0.8*L)
+            if (j>0.8*L)
             {
-                y_pasado[i]=5-5*(delta_x*i/L);
+                y_pasado[i]=5-5*(j/L);
            
             }
     }
@@ -69,6 +71,7 @@ void evolucion_en_el_timepo(float *y_futuro, float *y_pasado, float *y_presente,
     int i;
     int j;
     int k;
+    int u=0;
     FILE *fileout;
     char filename[100000];
     sprintf(filename, "string_%f.dat",rho);
@@ -77,14 +80,20 @@ void evolucion_en_el_timepo(float *y_futuro, float *y_pasado, float *y_presente,
     
     for(i=0;i<t;i++)
     {
-            for (k=0; k<=particion; k++)
+        if (i==u)
+        {
+            for (k=0; k<=100; k++)
             {
-                fprintf(fileout," %f  " , y_presente[k]);
+                fprintf(fileout," %f  " , y_presente[k*10]);
             }
+            
+        fprintf(fileout, "\n");
+            u=u+2000;
+        }
         
-            fprintf(fileout, "\n");
     
-            for (j=1;j<particion; j++)
+        
+        for (j=1;j<particion; j++)
             {
                 
                 y_futuro[j]=2.0*(1.0-r*r)*y_presente[j]-y_pasado[j]+r*r*(y_presente[j+1]+y_presente[j-1]);
@@ -96,9 +105,9 @@ void evolucion_en_el_timepo(float *y_futuro, float *y_pasado, float *y_presente,
     }
     
     
-    for (k=0; k<=particion; k++)
+    for (k=0; k<=100; k++)
     {
-        fprintf(fileout," %f  " , y_presente[k]);
+        fprintf(fileout," %f  " , y_presente[k*10]);
     }
     
     
