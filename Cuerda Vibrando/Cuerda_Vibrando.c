@@ -10,7 +10,7 @@ void  evolucion_en_el_timepo(float *y_futuro, float *y_pasado, float *y_presente
 int main(int argc, char *argv[])
 
 {
-float delta_x=0.1;
+float delta_x=0.05;
 float delta_t=0.0005;
 int L=100;
 int T=40;
@@ -84,7 +84,7 @@ void evolucion_en_el_timepo(float *y_futuro, float *y_pasado, float *y_presente,
         {
             for (k=0; k<=100; k++)
             {
-                fprintf(fileout," %f  " , y_presente[k*10]);
+                fprintf(fileout," %f  " , y_presente[k*20]);
             }
             
         fprintf(fileout, "\n");
@@ -107,7 +107,7 @@ void evolucion_en_el_timepo(float *y_futuro, float *y_pasado, float *y_presente,
     
     for (k=0; k<=100; k++)
     {
-        fprintf(fileout," %f  " , y_presente[k*10]);
+        fprintf(fileout," %f  " , y_presente[k*20]);
     }
     
     
