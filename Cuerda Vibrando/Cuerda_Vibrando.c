@@ -20,7 +20,7 @@ int particion =(int)100/delta_x;
 float *y_pasado,*y_futuro,*y_presente;
 float r=(delta_t/delta_x)*sqrt(T/rho);
 int t=(int)120/delta_t;
-//**En caso de valores mas bajos de ponen este cambio de variable para permitir que se pueda realisar la integracion **//
+//**En caso de valores mas bajos se ponen este cambio de variable para permitir que se pueda realizar la integracion **//
 
 if(rho<=0.004)
 {
