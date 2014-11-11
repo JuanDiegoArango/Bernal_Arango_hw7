@@ -8,3 +8,6 @@ string_0.010000.dat: string.x
 
 string.x : Cuerda_Vibrando.c
 	cc Cuerda_Vibrando.c -lm -o ./string.x 
+
+clean:
+	rm *.dat *.pdf
