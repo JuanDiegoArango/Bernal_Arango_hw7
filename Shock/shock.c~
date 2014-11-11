@@ -1,0 +1,81 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
+#include <string.h>
+
+int main(){
+  double rhoL=1.0;
+  double vL=0.0;
+  double pL=100000.0;
+  double rhoR=0.125;
+  double vR=0.0;
+  double pR=10000;
+  double x0=-10.0;
+  double xf=10.0;
+  double gamma=1.4;
+  double dt=0.0001;
+  int N=1000;
+  int i;
+  double x[N];
+  double f1_initial[N];
+  double f1_past[N];
+  double f1_half[N];
+  double f2_initial[N];
+  double f2_past[N];
+  double f2_half[N];
+  double f3_initial[N];
+  double f3_past[N];
+  double f3_half[N];
+  double u1_initial[N];
+  double u1_past[N];
+  double u1_half[N];
+  double u2_initial[N];
+  double u2_past[N];
+  double u2_half[N];
+  double u3_initial[N];
+  double u3_past[N];
+  double u3_half[N];
+  double rho_initial[N];
+  double v_initial[N];
+  double p_initial[N];
+  FILE *fileout;
+  double tf;
+
+  tf=atof(argv[1]);
+
+  int Ntime=tf/dt;
+  double u1[N][Ntime];
+  double u2[N][Ntime];
+  double u3[N][Ntime];
+
+  dx=(xf-x0)/N;
+  printf("%f\n",dx);
+  for(i=0;i<N;i++){
+    x[i]=i*dx;
+    if(x[i]<0){
+      rho_initial[i]=rhoL;
+      v_initial[i]=vL;
+      p_initial[i]=pL;
+    }
+    else{
+      rho_initial[i]=rhoR;
+      v_initial[i]=vR;
+      p_initial[i]=pR;
+    }
+    u1_initial[i]=rho_initial[i];
+    u2_initial[i]=rho_initial[i]*v_initial[i];
+    u3_initial[i]=(p_initial[i]/(gamma-1)+rho_initial[i]*v_initial[i]*v_initial[i]/2.0);
+    f1_initial[i]=u2_initial[i];
+    f2_initial[i]=u2_initial[i]*u2_initial[i]/u1_initial[i]+(gamma-1)*u3_initial[i]-u2_initial[i]*u2_initial[i]/(2.0*u1_initial[i]);
+    f3_initial[i]=(u3_initial[i]+(gamma-1)*(u3_initial[i]-u2_initial[i]*u2_initial[i]/(2.0*u1_initial[i])))*u2_initial[i]/U1_initial[i];
+    u1_half[i]=u1_initial[i];
+    u2_half[i]=u2_initial[i];
+    u3_half[i]=u3_half[i];
+    u1[i][0]=u1_initial[i];
+    u2[i][0]=u2_initial[i];
+    u3[i][0]=u3_initial[i]:
+
+  }
+  
+
+    }
